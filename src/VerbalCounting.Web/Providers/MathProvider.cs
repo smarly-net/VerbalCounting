@@ -7,11 +7,12 @@ namespace VerbalCounting.Web.Providers
 		public string Left { get; set; }
 		public string Operator { get; set; }
 		public string Right { get; set; }
+		public string Template { get; internal set; }
 	}
 
 	public class MathProvider
 	{
-			Random rnd = new Random();
+		Random rnd = new Random();
 
 		private int Generate(int from, int to)
 		{
@@ -21,7 +22,8 @@ namespace VerbalCounting.Web.Providers
 			return rnd.Next(from, to);
 		}
 
-		private int GenerateRangeByTemplate(string t) {
+		private int GenerateRangeByTemplate(string t)
+		{
 			var range = t.Split('-', ' ', StringSplitOptions.RemoveEmptyEntries);
 
 			string from = range[0];
@@ -30,18 +32,23 @@ namespace VerbalCounting.Web.Providers
 			return Generate(int.Parse(from) - 1, int.Parse(to));
 		}
 
-		private string GenerateOperator(string t) {
-			if (t == "?") {
+		private string GenerateOperator(string t)
+		{
+			if (t == "?")
+			{
 				return GenerateString(1, 1, "+-*/");
 			}
 
 			return t;
 		}
 
-		public Example GetExample(string template) {
-			var t = template.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+		public Example GetExample(string template)
+		{
+			string[] t = template.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-			return new Example {
+			return new Example
+			{
+				Template = template,
 				Left = GenerateRangeByTemplate(t[0]).ToString(),
 				Operator = GenerateOperator(t[1]),
 				Right = GenerateRangeByTemplate(t[2]).ToString(),

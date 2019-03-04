@@ -17,19 +17,30 @@ namespace VerbalCounting.Web.Controllers
 			return View("Index");
 		}
 
+		[HttpGet]
 		public IActionResult Easy(string op)
 		{
-			Example example = mathProvider.GetExample($"1 {op} 1");
-			return View("Counting", example);
+			return Counting($"1 {op} 1");
 		}
+
+		[HttpGet]
 		public IActionResult Normal(string op)
 		{
-			Example example = mathProvider.GetExample($"1-2 {op} 1-2");
-			return View("Counting", example);
+			return Counting($"1-2 {op} 1-2");
 		}
+
+		[HttpGet]
 		public IActionResult Hard(string op)
 		{
-			Example example = mathProvider.GetExample($"2-3 {op} 2-3");
+			return Counting($"2-3 {op} 2-3");
+		}
+
+
+
+
+		private IActionResult Counting(string template)
+		{
+			Example example = mathProvider.GetExample(template);
 			return View("Counting", example);
 		}
 	}
