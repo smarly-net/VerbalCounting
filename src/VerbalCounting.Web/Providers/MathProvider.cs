@@ -47,12 +47,23 @@ namespace VerbalCounting.Web.Providers
 		{
 			string[] t = template.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
+			string op = GenerateOperator(t[1]);
+			int left = GenerateRangeByTemplate(t[0]);
+			int right = GenerateRangeByTemplate(t[2]);
+
+			if (op == "/")
+			{
+				left = (left / right )== 0 ? 10 : left;
+
+				left = left / right * right;
+			}
+
 			return new Example
 			{
 				Template = template,
-				Left = GenerateRangeByTemplate(t[0]).ToString(),
-				Operator = GenerateOperator(t[1]),
-				Right = GenerateRangeByTemplate(t[2]).ToString(),
+				Left = left.ToString(),
+				Operator = op,
+				Right = right.ToString(),
 			};
 
 		}
