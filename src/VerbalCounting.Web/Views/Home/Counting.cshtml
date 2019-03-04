@@ -1,11 +1,26 @@
-﻿@model VerbalCounting.Web.Providers.Example
+﻿@using VerbalCounting.Web.Providers
+@model Example
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
+	Example succes = (Example)ViewData["Success"];
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>@Model.Left @Model.Operator @Model.Right = <input type="text" title="?"/></p>
+	<h1 class="display-4">Welcome</h1>
+
+	@if (succes != null)
+	{
+		<p class="bg-success">@succes.Left @succes.Operator @succes.Right = @succes.Result</p>
+	}
+
+	<form method="post">
+		@Html.HiddenFor(x => x.Template)
+		@Html.HiddenFor(x => x.Left)
+		@Html.HiddenFor(x => x.Operator)
+		@Html.HiddenFor(x => x.Right)
+		<p>@Model.Left @Model.Operator @Model.Right = <input type="text" title="?" name="@nameof(Example.Result)" /></p>
+		<p><input type="submit" value="calc" /></p>
+	</form>
 </div>
 

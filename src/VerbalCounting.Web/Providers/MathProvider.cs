@@ -7,7 +7,8 @@ namespace VerbalCounting.Web.Providers
 		public string Left { get; set; }
 		public string Operator { get; set; }
 		public string Right { get; set; }
-		public string Template { get; internal set; }
+		public string Template { get; set; }
+		public string Result { get; set; }
 	}
 
 	public class MathProvider

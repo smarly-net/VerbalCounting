@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Scripting;
+using System.Threading.Tasks;
 using VerbalCounting.Web.Providers;
 
 namespace VerbalCounting.Web.Controllers
@@ -35,8 +37,39 @@ namespace VerbalCounting.Web.Controllers
 			return Counting($"2-3 {op} 2-3");
 		}
 
+		[HttpPost]
+		public async Task<IActionResult> Easy(Example val)
+		{
+			return await Counting(val);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Normal(Example val)
+		{
+			return await Counting(val);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Hard(Example val)
+		{
+			return await Counting(val);
+		}
 
 
+
+
+		private async Task<IActionResult> Counting(Example result)
+		{
+			string value = (await CSharpScript.EvaluateAsync($"{result.Left} {result.Operator} {result.Right}")).ToString();
+
+			if (result.Result == value)
+			{
+				ViewData["Success"] = result;
+			}
+
+			Example example = mathProvider.GetExample(result.Template);
+			return View("Counting", example);
+		}
 
 		private IActionResult Counting(string template)
 		{
