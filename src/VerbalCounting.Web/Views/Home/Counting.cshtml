@@ -4,6 +4,7 @@
 @{
 	ViewData["Title"] = "Index";
 	Example succes = (Example)ViewData["Success"];
+	string fail = (string)ViewData["Fail"];
 }
 
 <div class="text-center">
@@ -11,15 +12,19 @@
 
 	@if (succes != null)
 	{
-		<p class="bg-success">@succes.Left @succes.Operator @succes.Right = @succes.Result</p>
+		<p class="text-success">@succes.Left @succes.Operator @succes.Right = @succes.Result</p>
+	}
+	else if (fail != null)
+	{
+		<p class="text-danger font-weight-bold">@Model.Left @Model.Operator @Model.Right = @fail</p>
 	}
 
 	<form method="post">
-		@Html.HiddenFor(x => x.Template)
-		@Html.HiddenFor(x => x.Left)
-		@Html.HiddenFor(x => x.Operator)
-		@Html.HiddenFor(x => x.Right)
-		<p>@Model.Left @Model.Operator @Model.Right = <input type="text" title="?" name="@nameof(Example.Result)" /></p>
+		<input type="hidden" name="@nameof(Example.Template)" value="@(Model.Template)" />
+		<input type="hidden" name="@nameof(Example.Left)" value="@(Model.Left)" />
+		<input type="hidden" name="@nameof(Example.Operator)" value="@(Model.Operator)" />
+		<input type="hidden" name="@nameof(Example.Right)" value="@(Model.Right)" />
+		<p>@Model.Left @Model.Operator @Model.Right = <input type="text" name="@nameof(Example.Result)" autofocus  autocomplete="off" /></p>
 		<p><input type="submit" value="calc" /></p>
 	</form>
 </div>

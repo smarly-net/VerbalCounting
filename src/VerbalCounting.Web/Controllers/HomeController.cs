@@ -55,9 +55,6 @@ namespace VerbalCounting.Web.Controllers
 			return await Counting(val);
 		}
 
-
-
-
 		private async Task<IActionResult> Counting(Example result)
 		{
 			string value = (await CSharpScript.EvaluateAsync($"{result.Left} {result.Operator} {result.Right}")).ToString();
@@ -65,10 +62,13 @@ namespace VerbalCounting.Web.Controllers
 			if (result.Result == value)
 			{
 				ViewData["Success"] = result;
+				return View("Counting", mathProvider.GetExample(result.Template));
 			}
-
-			Example example = mathProvider.GetExample(result.Template);
-			return View("Counting", example);
+			else
+			{
+				ViewData["Fail"] = result.Result;
+				return View("Counting", result);
+			}
 		}
 
 		private IActionResult Counting(string template)
