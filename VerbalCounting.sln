@@ -7,6 +7,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CEAFBF3C-CA6
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VerbalCounting.Web", "src\VerbalCounting.Web\VerbalCounting.Web.csproj", "{20B64440-3912-4C70-B8E4-6AC1AD3DD43D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{D7323419-7745-47DA-B29A-A3A40632B255}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		Dockerfile = Dockerfile
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
