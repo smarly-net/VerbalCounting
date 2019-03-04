@@ -29,7 +29,17 @@ namespace VerbalCounting.Web
 			app.UseDeveloperExceptionPage();
 
 			app.UseStaticFiles();
-			app.UseMvcWithDefaultRoute();
+			app.UseMvc(routes =>
+			{
+				routes.MapRoute(
+					name: "Operator",
+					template: "{action}",
+					defaults: new { controller ="Home" });
+
+				routes.MapRoute(
+					name: "default",
+					template: "{controller=Home}/{action=Index}/{id?}");
+			});
 		}
 	}
 }

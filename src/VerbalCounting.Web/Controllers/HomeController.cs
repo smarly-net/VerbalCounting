@@ -14,8 +14,23 @@ namespace VerbalCounting.Web.Controllers
 
 		public IActionResult Index()
 		{
-			Example example = mathProvider.GetExample("2-3 ? 3-5");
-			return View(example);
+			return View("Index");
+		}
+
+		public IActionResult Easy(string op)
+		{
+			Example example = mathProvider.GetExample($"1 {op} 1");
+			return View("Counting", example);
+		}
+		public IActionResult Normal(string op)
+		{
+			Example example = mathProvider.GetExample($"1-2 {op} 1-2");
+			return View("Counting", example);
+		}
+		public IActionResult Hard(string op)
+		{
+			Example example = mathProvider.GetExample($"2-3 {op} 2-3");
+			return View("Counting", example);
 		}
 	}
 }

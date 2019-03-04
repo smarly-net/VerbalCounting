@@ -1,4 +1,6 @@
-﻿@model VerbalCounting.Web.Providers.Example
+﻿@using VerbalCounting.Web.Controllers
+@model VerbalCounting.Web.Providers.Example
+
 
 @{
     ViewData["Title"] = "Index";
@@ -6,6 +8,8 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>@Model.Left @Model.Operator @Model.Right = ?</p>
+	<p>@Html.ActionLink("Easy +", nameof(HomeController.Easy), new { op = "+" }) (@Html.ActionLink("-", nameof(HomeController.Easy), new { op = "-" }) @Html.ActionLink("*", nameof(HomeController.Easy), new { op = "*" }) @Html.ActionLink("/", nameof(HomeController.Easy), new { op = "/" }))</p>
+    <p>@Html.ActionLink("Normal", nameof(HomeController.Normal), new { op = "+" })</p>
+    <p>@Html.ActionLink("Hard", nameof(HomeController.Hard), new { op = "+" })</p>
 </div>
 
